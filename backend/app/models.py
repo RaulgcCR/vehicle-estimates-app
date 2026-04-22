@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime
-from datetime import datetime
+from datetime import datetime, UTC
 from .db import Base
 
 class Estimate(Base):
@@ -13,4 +13,4 @@ class Estimate(Base):
     repair_description = Column(String, nullable=False)
     estimated_cost = Column(Float, nullable=False)
     status = Column(String, default="pending")
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(UTC))

@@ -1,0 +1,54 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 20px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.estimates-list {
+    margin-top: 20px;
+}
+
+.estimate-item {
+    display: flex;
+    gap: 1rem;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.estimate-item p {
+    font-weight: bold;
+}
+
+.estimate-item p span {
+    font-weight: normal;
+}
+
+.create-estimate {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.create-estimate-form {
+    width: 50%;
+}
+
+.input-container {
+    padding: 8px;
+    gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+textarea {
+    font-family:Arial;
+}

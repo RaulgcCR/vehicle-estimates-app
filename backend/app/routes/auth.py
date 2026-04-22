@@ -8,7 +8,7 @@ router = APIRouter(tags=["Authentication"])
 def login(request: LoginRequest):
 
     # For demonstration, we use hardcoded credentials
-    if request.username == "admin" and request.password == "password":
+    if request.username == "admin" and request.password == "Admin123":
         access_token = create_access_token(data={"sub": request.username})
         return TokenResponse(access_token=access_token)
     else:
