@@ -63,8 +63,8 @@ const DashboardPage = () => {
               <p>Vehicle Mileage: <span>{estimate.vehicle_mileage}</span></p>
               <p>Repair Description: <span>{estimate.repair_description}</span></p>
               <p>Estimated Cost: <span>{estimate.estimated_cost}</span></p>
-              <p>Status: <span>{estimate.status}</span></p>
-              <button onClick={() => handleStatusChange(estimate.id, estimate.status === "approved" ? "pending" : "approved")}>{estimate.status === "approved" ? "Pending" : "Approve"}</button>
+              <p>Status: <span style={{ color: estimate.status === "approved" ? "green" : "orange" }}>{estimate.status}</span></p>
+              <button onClick={() => handleStatusChange(estimate.id, estimate.status === "approved" ? "pending" : "approved")}>{"Change Status"}</button>
             </div>
           ))}
       </div>

@@ -31,7 +31,13 @@ A full-stack web application for managing vehicle repair estimates with user aut
    cd vehicle-estimates-app
    ```
 
-2. **Build and run with Docker Compose**
+2. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   Update `.env` with your settings if needed (defaults are provided for local development)
+
+3. **Build and run with Docker Compose**
    ```bash
    docker-compose up --build
    ```
@@ -41,7 +47,7 @@ A full-stack web application for managing vehicle repair estimates with user aut
    - Backend API: http://localhost:8000
    - API Docs: http://localhost:8000/docs
 
-3. **Login with demo credentials**
+4. **Login with demo credentials**
    - Username: `admin`
    - Password: `Admin123`
 
@@ -100,6 +106,28 @@ A full-stack web application for managing vehicle repair estimates with user aut
    ```bash
    npm run build
    ```
+
+## Environment Variables
+
+The application uses environment variables for configuration. Copy `.env.example` to `.env` and customize as needed:
+
+```bash
+cp .env.example .env
+```
+
+### Available Variables
+
+- **VITE_API_URL**: Frontend API endpoint (default: `http://localhost:8000`)
+- **BACKEND_PORT**: Backend server port (default: `8000`)
+- **FRONTEND_PORT**: Frontend server port (default: `5173`)
+- **DATABASE_URL**: Database connection string (default: `sqlite:///./vehicle_estimates.db`)
+- **SECRET_KEY**: JWT secret key for token signing (⚠️ **Change in production!**)
+- **ALGORITHM**: JWT algorithm (default: `HS256`)
+- **ACCESS_TOKEN_EXPIRE_MINUTES**: Token expiration time (default: `600`)
+- **DEMO_USERNAME**: Demo login username (default: `admin`)
+- **DEMO_PASSWORD**: Demo login password (default: `Admin123`)
+
+**⚠️ Security Note**: Never commit `.env` to git. Use `.env.example` as a template. The `.gitignore` already prevents `.env` from being tracked.
 
 ## API Endpoints
 

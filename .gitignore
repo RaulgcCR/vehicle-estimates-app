@@ -49,10 +49,10 @@ yarn-error.log
 # Frontend
 dist/
 .env.local
+.env
 .env.*.local
 
 # Environment
-.env
 .env.local
 
 # Docker
