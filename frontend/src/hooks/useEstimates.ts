@@ -51,6 +51,17 @@ export const useEstimates = () => {
         } finally {
             setLoading(false);
         }
+    };    const updateEstimateStatus = async (id, status) => {
+        try {
+            setError(null);
+            const response = await api.patch(`/estimates/${id}/status`, { status }, { headers });
+            setEstimates((prev) =>
+                prev.map((estimate) => (estimate.id === id ? response.data : estimate))
+            );
+        } catch (error) {
+            setError("Error updating estimate status");
+            console.error("Update estimate status error:", error);
+        }
     };
 
     return {
@@ -61,5 +72,6 @@ export const useEstimates = () => {
         setStatusFilter,
         createEstimate,
         fetchEstimates,
+        updateEstimateStatus,
     };
 };

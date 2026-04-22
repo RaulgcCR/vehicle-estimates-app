@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../context/useAuth';
 import { useEstimates } from '../hooks/useEstimates';
 import './DashboardPage.css';
 
 const DashboardPage = () => {
   const { logout } = useAuth();
-  const { estimates, loading, error, fetchEstimates, createEstimate } = useEstimates();
+  const { estimates, loading, error, fetchEstimates, createEstimate, updateEstimateStatus } = useEstimates();
+  const [statusFilter, setStatusFilter] = useState(null);
 
   useEffect(() => {
     if (!estimates) {
@@ -29,12 +30,15 @@ const DashboardPage = () => {
     });
   };
 
+  const handleStatusChange = (id, status) => {
+    updateEstimateStatus(id, status);
+  };
+  const handleFilter = (status) => {
+    setStatusFilter(status === "" ? null : status);
+  };
+
   if (loading) {
     return <p>Loading estimates...</p>;
-  }
-
-  if (error) {
-    return <p>Error fetching estimates: {error}</p>;
   }
 
   return (
@@ -42,19 +46,27 @@ const DashboardPage = () => {
       <div className="dashboard-header">
         <h1>Repair Estimates</h1>
         <button className="logout-button" onClick={handleLogout}>Logout</button>
-      </div>
+      </div>      {error && <p className="error-message">{error}</p>}
+      <select className='status-filter' value={statusFilter || ""} onChange={(e) => handleFilter(e.target.value)}>
+        <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+      </select>
       <div className="estimates-list">
-        {estimates.map((estimate) => (
-          <div key={estimate.id} className="estimate-item">
-            <p>Customer Name: <span>{estimate.customer_name}</span></p>
-            <p>Vehicle Model: <span>{estimate.vehicle_model}</span></p>
-            <p>Vehicle Year: <span>{estimate.vehicle_year}</span></p>
-            <p>Vehicle Mileage: <span>{estimate.vehicle_mileage}</span></p>
-            <p>Repair Description: <span>{estimate.repair_description}</span></p>
-            <p>Estimated Cost: <span>{estimate.estimated_cost}</span></p>
-            <p>Status: <span>{estimate.status}</span></p>
-          </div>
-        ))}
+        {estimates
+          ?.filter((estimate) => !statusFilter || estimate.status === statusFilter)
+          .map((estimate) => (
+            <div key={estimate.id} className="estimate-item">
+              <p>Customer Name: <span>{estimate.customer_name}</span></p>
+              <p>Vehicle Model: <span>{estimate.vehicle_model}</span></p>
+              <p>Vehicle Year: <span>{estimate.vehicle_year}</span></p>
+              <p>Vehicle Mileage: <span>{estimate.vehicle_mileage}</span></p>
+              <p>Repair Description: <span>{estimate.repair_description}</span></p>
+              <p>Estimated Cost: <span>{estimate.estimated_cost}</span></p>
+              <p>Status: <span>{estimate.status}</span></p>
+              <button onClick={() => handleStatusChange(estimate.id, estimate.status === "approved" ? "pending" : "approved")}>{estimate.status === "approved" ? "Pending" : "Approve"}</button>
+            </div>
+          ))}
       </div>
       <div className='create-estimate'>
         <h2>Create New Estimate</h2>

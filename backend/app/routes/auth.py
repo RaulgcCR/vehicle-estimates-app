@@ -6,7 +6,13 @@ router = APIRouter(tags=["Authentication"])
 
 @router.post("/login", response_model=TokenResponse)
 def login(request: LoginRequest):
-
+    """
+    Login endpoint. For demonstration, uses hardcoded credentials.
+    
+    Demo credentials:
+    - username: admin
+    - password: Admin123
+    """
     # For demonstration, we use hardcoded credentials
     if request.username == "admin" and request.password == "Admin123":
         access_token = create_access_token(data={"sub": request.username})
